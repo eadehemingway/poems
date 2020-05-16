@@ -1,21 +1,38 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState } from "react"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import styled from "styled-components"
+import { useEffect } from "react"
+import { Line } from "../components/Line"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const IndexPage = () => {
+  const [lines, setLines] = useState(0)
+  const [linesArr, setLinesArr] = useState([])
+
+  function handleInputChange(e) {
+    const numLines = Number(e.target.value)
+
+    setLines(numLines)
+  }
+  useEffect(() => {
+    const arr = new Array(lines).fill(null)
+
+    setLinesArr(arr)
+  }, [lines])
+  return (
+    <>
+      <div>lines</div>
+      <Input type="text" onChange={handleInputChange} value={lines} />
+      {linesArr.map((l, i) => {
+        return <Line lineNumber={i + 1} />
+      })}
+    </>
+  )
+}
+
+const Input = styled.input`
+  width: 200px;
+  height: 20px;
+  border: 1px solid coral;
+`
 
 export default IndexPage
