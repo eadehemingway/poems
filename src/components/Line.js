@@ -16,22 +16,43 @@ import "./layout.css"
 
 export const Line = ({ lineNumber }) => {
   const [lineVal, setLineVal] = useState("")
-  console.log("syllable:", syllable("hi"))
 
   function handleChange(e) {
     setLineVal(e.target.value)
   }
-  const syllables = 10
-  //   console.log(syllable("hello"))
+
   return (
     <Container>
-      <p>{lineNumber}</p>
-      <input value={lineVal} onChange={handleChange} />
-      <p>{syllable(lineVal)}</p>
+      <PStyledRight>{lineNumber}</PStyledRight>
+      <Input value={lineVal} onChange={handleChange} />
+      <PStyledLeft>{syllable(lineVal)}</PStyledLeft>
     </Container>
   )
 }
 
 const Container = styled.div`
   display: flex;
+`
+
+const PStyled = styled.p`
+  font-family: Major Mono;
+  width: 30px;
+  margin: 0 20px;
+  margin-top: 5px;
+  /* padding: 10px; */
+`
+const PStyledRight = styled(PStyled)`
+  text-align: right;
+`
+const PStyledLeft = styled(PStyled)`
+  text-align: left;
+`
+const Input = styled.input`
+  width: 550px;
+  height: 40px;
+  border: none;
+  border-bottom: 1px solid coral;
+  font-family: Major Mono;
+  outline: none;
+  padding: 10px;
 `
