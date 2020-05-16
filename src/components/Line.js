@@ -11,14 +11,16 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import * as syllable from "syllable"
 
-import Header from "./header"
 import "./layout.css"
 
-export const Line = ({ lineNumber }) => {
+export const Line = ({ lineNumber, setLinesArr, linesArr, index }) => {
   const [lineVal, setLineVal] = useState("")
 
   function handleChange(e) {
     setLineVal(e.target.value)
+    const newArr = [...linesArr]
+    newArr[index] = e.target.value
+    setLinesArr(newArr)
   }
 
   return (
@@ -55,4 +57,5 @@ const Input = styled.input`
   font-family: Major Mono;
   outline: none;
   padding: 10px;
+  font-size: 12px;
 `
