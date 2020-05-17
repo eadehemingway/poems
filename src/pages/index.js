@@ -6,9 +6,8 @@ import { Line } from "../components/Line"
 import "../index.css"
 
 const IndexPage = () => {
-  const [lines, setLines] = useState(0)
+  const [lines, setLines] = useState()
   const [linesArr, setLinesArr] = useState([])
-  const [test, setTest] = useState("")
 
   function handleInputChange(e) {
     const numLines = Number(e.target.value)
@@ -16,49 +15,34 @@ const IndexPage = () => {
     setLines(numLines)
   }
   useEffect(() => {
+    if (!lines) return
     const arr = new Array(lines).fill("")
+
     setLinesArr(arr)
   }, [lines])
 
-  const copyToClipboard = str => {
-    // const newStr = ``
-    // console.log(linesArr)
-    // linesArr.forEach(l => {
-    //   return newStr + `/n${l}`
-    // })
-    // console.log(newStr)
-
+  const copyToClipboard = () => {
     const el = document.createElement("textarea")
-
-    el.value = linesArr.join(" ")
+    const str = linesArr.join("\r\n")
+    el.value = str
     document.body.appendChild(el)
     el.select()
     document.execCommand("copy")
     document.body.removeChild(el)
-
-    // const el = document.getElementById("textarea")
-    // // console.log("el:", el)
-    // el.select()
-    // document.execCommand("copy")
   }
 
-  const testVal = `one
-  two 
-  three`
   return (
     <Container>
       <Header>
         <PStyled>lines:</PStyled>
-        <Input type="text" onChange={handleInputChange} value={lines} />
+        <Input
+          placeholder={0}
+          type="text"
+          onChange={handleInputChange}
+          defaultValue={lines}
+        />
         <StyledBtn onClick={copyToClipboard}>Copy</StyledBtn>
       </Header>
-      {/* <textarea
-        id={"textarea"}
-        onChange={e => {
-          setTest(e.target.value)
-        }}
-        value={testVal}
-      ></textarea> */}
       {linesArr.map((l, i) => {
         return (
           <Line
