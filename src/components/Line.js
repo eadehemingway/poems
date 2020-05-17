@@ -58,4 +58,7 @@ const Input = styled.input`
   outline: none;
   padding: 10px;
   font-size: 12px;
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+  }
 `
